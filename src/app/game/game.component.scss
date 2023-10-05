@@ -1,0 +1,72 @@
+.field {
+    width: 100vw;
+    height: 100vh;
+    max-width: 100%;
+    background-image: url('./../../assets/img/wood.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cardStack {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+
+    img {
+        position: absolute;
+        width: 100px;
+    }
+}
+
+.topCard{
+    cursor: pointer;
+    transition: all 125ms ease-in-out;
+    &:hover{
+        transform: scale(1.02) translateY(-10px);
+    }
+}
+
+.pickCard{
+    animation: pickCard-animation 1.5s ease-in-out;
+    transform: scale(1) translateX(150px) translateY(-190px) rotate(15deg);
+}
+
+.playedCard{
+    right: 20px;
+    transform: scale(1) translateX(150px) translateY(-190px) rotate(15deg);
+}
+
+@keyframes pickCard-animation{
+    0% {
+        transform: scale(1);
+    }
+    30% {
+        transform: scale(1.2);
+    }
+    60% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1) translateX(150px) translateY(-190px) rotate(15deg);
+    }
+}
+
+.player-position{
+    position: absolute;
+    right: 0;
+}
+.buttonAddPerson{
+   position: absolute;
+   right: 32px;
+   bottom: 32px; 
+}
+.infoCard {
+    position: absolute;
+    bottom: 32px;
+    left: 100px;
+    right: 100px;
+}
