@@ -29,7 +29,6 @@ import { provideFirestore,getFirestore } from '@angular/fire/firestore';
     PlayerComponent,
     DialogAddPlayerComponent,
     GameInfoComponent,
-    // FirebaseServiceComponent
   ],
   imports: [
     MatCardModule,
