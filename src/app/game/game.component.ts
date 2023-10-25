@@ -2,10 +2,10 @@ import { Component, OnInit, inject } from '@angular/core';
 import { Game } from 'src/models/game';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogAddPlayerComponent } from '../dialog-add-player/dialog-add-player.component';
-import { limit, query, orderBy, where, Firestore, collectionData, onSnapshot, addDoc, doc, getDoc, updateDoc } from '@angular/fire/firestore';
+import { docData, limit, query, orderBy, where, Firestore,collection, collectionData, onSnapshot, addDoc, doc, getDoc, updateDoc } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
-import { collection } from 'firebase/firestore';
+// import { collection } from 'firebase/firestore';
 import { STRING_TYPE } from '@angular/compiler';
 
 
@@ -21,57 +21,64 @@ export class GameComponent implements OnInit {
 
 
   firestore: Firestore = inject(Firestore);
-  // normalTest:any = [];
-  unsubGame;
+  // normalGame:any = [];
+  unsubGame:any;
 
-  constructor(public dialog: MatDialog, private route: ActivatedRoute) { 
+  constructor(public dialog: MatDialog, private route: ActivatedRoute) {   }
 
-    this.unsubGame = onSnapshot(this.getGameRef(), (list:any) => {
-      // this.normalTest = [];
-      list.forEach((element: any) => {
-        // this.normalTest.push(this.setTestObject(element.data(), element.id));
-        console.log(element.data());
-      });
-    });
+  ngOnInit(): void {
+    
+    this.newCardGame();
+    
 
-
+    this.route.params.subscribe((params) => {
+      console.log(params['id']);
+       
+      let activeGame$ = docData(this.getSingleDocRef(params['id']));
+      activeGame$.subscribe((game: any) => {
+        
+        this.game.currentPlayer = game.currentPlayer;
+        this.game.playedCards = game.playedCards;
+        this.game.players = game.players;
+        this.game.stack = game.stack;
+        this.game.currentCard = game.currentCard;
+        this.game.pickCardAnimation = game.pickCardAnimation;
+        
+      })
+      console.log("Game Update",activeGame$);
+    })
   }
 
   ngonDestroy() {
     this.unsubGame();
   }
 
-
-  // setTestObject(obj: any, id: string) {
-  //   return {
-  //     id: id || "",
-  //     type: obj.type || "game",
-  //     title: obj.title || "",
-  //     content: obj.content || "",
-  //     marked: obj.marked || false,
-  //   }
-  // }
-
-  ngOnInit(): void {
-    this.newCardGame();
-
-    this.route.params.subscribe((params) => {
-      console.log(params['id']);
-    })
+  subGame(){
+    return onSnapshot(this.getGameRef(), (list:any) => {
+      list.forEach((element: any) => {
+        console.log("Game Update",element.data());
+      });
+    });
   }
 
   getGameRef() {
     return collection(this.firestore, 'games');
   }
 
-  getSingleDocRef(colId:string, docId:string ){
-    return doc(collection(this.firestore, colId), docId);
+  getSingleDocRef(docId:string ){
+    return doc(collection(this.firestore, 'games'), docId);
   }
 
 
   newCardGame() {
     this.game = new Game();
+    // this.addCardGame(this.game.toJson());
+  }
 
+  async addCardGame(item: Game){
+    await addDoc(this.getGameRef(),item).catch(
+      (err)=>{console.error(err)}).then(
+      (docRef)=>{console.log("DOC written by ID:",docRef)});
   }
 
   takeCard() {

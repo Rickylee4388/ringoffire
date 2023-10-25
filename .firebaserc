@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "neuringoffire": {
+      "hosting": {
+        "ringOfFire": [
+          "neuringoffire"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "neuringoffire"
+  }
+}
