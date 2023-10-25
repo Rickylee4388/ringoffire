@@ -28,7 +28,7 @@ newGame(){
 async addCardGame(item: Game){
   await addDoc(this.getGameRef(),item).catch(
     (err)=>{console.error(err)}).then(
-    (docRef)=>{console.log("DOC written by ID:",docRef)});
+    (docRef:any)=>{console.log("DOC written by ID:",docRef.id)});
 }
 
 getGameRef() {
