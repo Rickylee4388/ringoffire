@@ -72,7 +72,7 @@ export class GameComponent implements OnInit {
 
   newCardGame() {
     this.game = new Game();
-    // this.addCardGame(this.game.toJson());
+  
   }
 
   async addCardGame(item: Game){

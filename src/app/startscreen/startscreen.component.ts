@@ -21,16 +21,12 @@ newGame(){
   //start new game
   this.game = new Game();
   // Then muss Definiert werden klappt noch nicht
-  this.addCardGame(this.game).then((gameInfo:any)=>{
-  console.log(gameInfo);
-
-  });
+  this.addCardGame(this.game.toJson());
   // this.router.navigateByUrl('/game');
 }
 
-
 async addCardGame(item: Game){
-  await addDoc(this.getGameRef(),item.toJson()).catch(
+  await addDoc(this.getGameRef(),item).catch(
     (err)=>{console.error(err)}).then(
     (docRef)=>{console.log("DOC written by ID:",docRef)});
 }
