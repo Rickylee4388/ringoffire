@@ -16,31 +16,40 @@ import { STRING_TYPE } from '@angular/compiler';
 })
 export class GameComponent implements OnInit {
 
-  game: any = Game;
+
 
 
   firestore: Firestore = inject(Firestore);
   // normalGame:any = [];
-  unsubGame:any;
+  unsubGame;
   gameId:any;
+  game!: Game;
 
-  constructor(public dialog: MatDialog, private route: ActivatedRoute) {   }
+  constructor(public dialog: MatDialog, private route: ActivatedRoute) {   
+    this.unsubGame = onSnapshot(this.getGameRef(), (list:any) => {
+      list.forEach((element: any) => {
+        console.log("Game Update",element.data());
+      });
+    });
+    
+  }
 
   ngOnInit(): void {
     
     this.newCardGame();  
+    // this.subGame();
     this.route.params.subscribe((params) => {
       console.log(params['id']);
       this.gameId = params['id'];
-       
+      
       let activeGame$ = docData(this.getSingleDocRef(this.gameId));
       activeGame$.subscribe((game: any) => {
         
         this.game.currentPlayer = game.currentPlayer;
-        this.game.playedCards = game.playedCards;
+        this.game.playedCard = game.playedCards;
         this.game.players = game.players;
         this.game.stack = game.stack;
-        this.game.currentCard = game.currentCard;
+        this.game.pickCurrentCard = game.pickCurrentCard;
         this.game.pickCardAnimation = game.pickCardAnimation;
       })
     })
@@ -50,13 +59,9 @@ export class GameComponent implements OnInit {
     this.unsubGame();
   }
 
-  subGame(){
-    return onSnapshot(this.getGameRef(), (list:any) => {
-      list.forEach((element: any) => {
-        console.log("Game Update",element.data());
-      });
-    });
-  }
+  // subGame(){
+  //   return 
+  // }
 
   getGameRef() {
     return collection(this.firestore, 'games');
@@ -80,7 +85,7 @@ export class GameComponent implements OnInit {
 
   takeCard() {
     if (!this.game.pickCardAnimation) {
-      this.game.pickCurrentCard = this.game.stack.pop();
+      this.game.pickCurrentCard= this.game.stack.pop();
       this.saveGame();
       console.log(this.game.pickCurrentCard);
       this.game.pickCardAnimation = true;
@@ -88,6 +93,7 @@ export class GameComponent implements OnInit {
 
       this.game.currentPlayer++;
       this.game.currentPlayer = this.game.currentPlayer % this.game.players.length;
+     
     }
 
 
