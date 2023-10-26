@@ -14,12 +14,12 @@
       <!-- Stack for played Cards  -->
       <img class="playedCard" *ngFor="let card of game.playedCard" src="./assets/img/cards/{{card}}.png" alt="">
       <!-- Current Card animation -->
-      <img (click)="takeCard()" *ngIf="pickCardAnimation" class="pickCard" style="right: 20px;"
-         src="./assets/img/cards/{{pickCurrentCard}}.png" alt="">
+      <img (click)="takeCard()" *ngIf="game.pickCardAnimation" class="pickCard" style="right: 20px;"
+         src="./assets/img/cards/{{game.pickCurrentCard}}.png" alt="">
 
    </div>
 </div>
-<app-game-info [card]="pickCurrentCard" class="infoCard"></app-game-info>
+<app-game-info [card]="game.pickCurrentCard" class="infoCard"></app-game-info>
 
 <button mat-fab (click)="openDialog()" class="buttonAddPerson" color="primary">
    <mat-icon>person_add</mat-icon>
