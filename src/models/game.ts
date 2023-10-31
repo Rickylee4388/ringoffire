@@ -1,12 +1,15 @@
 export class Game{
     public players: string[] = [];
+    public player_images: string[] = [];
     public stack: string[] = [];
     public playedCard: string[] = [];
     public currentPlayer: number = 0;
     public pickCardAnimation = false;
     public pickCurrentCard: any = '';
 
-
+/**
+ * load card stack to backend
+ */
     constructor(){
         for (let i = 1; i < 14; i++) {
               this.stack.push('ace_' + i);
@@ -16,9 +19,14 @@ export class Game{
         }
         shuffle(this.stack);
     }
+    /**
+     * 
+     * @returns variables for each game
+     */
     public toJson(){
       return{
         players: this.players,
+        player_images: this.player_images,
         stack: this.stack,
         playedCard: this.playedCard,
         currentPlayer: this.currentPlayer,
@@ -28,7 +36,11 @@ export class Game{
 
     }
 }
-
+/**
+ * 
+ * @param array eg stack of cards
+ * @returns shuffeled values
+ */
 function shuffle(array: any[]) {
     let currentIndex = array.length,  randomIndex;
   

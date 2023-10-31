@@ -1,18 +1,36 @@
+<div class="scroll-container-desktop">
+   <app-player (click)="editPlayer(i)" *ngFor="let player of game.players; let i = index" 
+      [playerActive]="i== game.currentPlayer" 
+      [image]="game.player_images[i]" 
+      [name]="player" 
+      [ngStyle]="{'top.px' : 100+(i*70)}"></app-player>
+</div>
 
-<app-player *ngFor="let player of game.players; let i = index" class="player-position"
-   [playerActive]="i== game.currentPlayer"
-   [name]="player"
-   [ngStyle]="{'top.px' : 100+(i*70)}"></app-player>
-<div class="field">
+
+<div class="scroll-container">
+
+   <app-player-mobile (click)="editPlayer(i)" class="mobile" *ngFor="let player of game.players; let i = index"
+      [playerActive]="i== game.currentPlayer" 
+      [name]="player"
+      [image]="game.player_images[i]"
+      [ngStyle]="{'left.px' : 5+(i*70), 'top.px':0}"></app-player-mobile>
+
+</div>
+
+<div *ngIf="gameOver" class="gameOver">
+   <img src="./assets/img/gameover.jpg" alt="">
+</div>
+
+<div *ngIf="!gameOver" class="field">
    <div class="cardStack">
       <!-- Card Stack  -->
       <img *ngFor="let c of[0,1,2,3];let i = index;" [ngStyle]="{'right.px': i*5}"
          src="./assets/img/cards/card_cover.png" alt="">
       <!-- Top Card from Stack  -->
-      <img (click)="takeCard()" class="topCard" style="right: 20px;" src="./assets/img/cards/card_cover.png"
-         alt="">
+      <img (click)="takeCard()" class="topCard" style="right: 20px;" src="./assets/img/cards/card_cover.png" alt="">
       <!-- Stack for played Cards  -->
-      <img class="playedCard" *ngFor="let card of game.playedCard" src="./assets/img/cards/{{card}}.png" alt="">
+      <img class="playedCard playedCard-res" *ngFor="let card of game.playedCard" src="./assets/img/cards/{{card}}.png"
+         alt="">
       <!-- Current Card animation -->
       <img (click)="takeCard()" *ngIf="game.pickCardAnimation" class="pickCard" style="right: 20px;"
          src="./assets/img/cards/{{game.pickCurrentCard}}.png" alt="">
@@ -23,4 +41,4 @@
 
 <button mat-fab (click)="openDialog()" class="buttonAddPerson" color="primary">
    <mat-icon>person_add</mat-icon>
- </button>
+</button>

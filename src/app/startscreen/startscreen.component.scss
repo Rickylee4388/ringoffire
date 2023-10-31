@@ -1,19 +1,26 @@
-.startScreen{
+body {
+    overflow: hidden;
+}
+
+.startScreen {
     display: flex;
     justify-content: center;
-    align-items: center;
-    background-color: #404040;
+    // align-items: center;
+    background-color: #f72a2a;
     width: 100vw;
     height: 100vh;
     max-width: 100%;
-    img{
+
+    img {
         height: 100vh;
     }
 }
-.startBoxText{
+
+.startBoxText {
     position: absolute;
     top: 35%;
-    p{
+
+    p {
         position: relative;
         z-index: 1;
         text-align: center;
@@ -23,21 +30,65 @@
         line-height: 0px;
     }
 }
-.startBox{
+
+.startBox {
     position: absolute;
     left: 0;
     right: 0;
-    display:flex ;
+    display: flex;
     justify-content: center;
     bottom: 150px;
-   
 
-    img{
+
+    img {
         width: 40vw;
         height: auto;
-        &:hover{
+
+        &:hover {
             filter: brightness(1.5);
             cursor: pointer;
         }
+    }
+}
+
+
+
+@media only screen and (max-width: 1200px) {
+    .startScreen {
+        img {
+            height: 60%;
+            margin-top: 20%;
+        }
+    }
+}
+
+@media only screen and (max-width: 700px) {
+
+    .startBoxText[_ngcontent-ng-c460815147] {
+        top: 40%;
+
+        p {
+            font-size: 38px;
+        }
+    }
+
+    .startScreen {
+        img {
+            height: 40%;
+            margin-top: 50%;
+        }
+    }
+
+    .startBox[_ngcontent-ng-c460815147] img[_ngcontent-ng-c460815147] {
+        width: 90vw;
+        height: auto;
+    }
+}
+
+@media only screen and (max-height: 400px) {
+
+    .startBox[_ngcontent-ng-c460815147] {
+
+        bottom: 50px;
     }
 }

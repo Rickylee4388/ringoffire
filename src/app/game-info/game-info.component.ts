@@ -33,6 +33,9 @@ export class GameInfoComponent implements OnInit, OnChanges {
 
   }
 
+  /**
+   * connects text to card by number
+   */
   ngOnChanges(): void {
     if (this.card) {
       console.log('current card is', this.card);
